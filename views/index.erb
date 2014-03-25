@@ -17,12 +17,19 @@
         <form action="/save" method="post">
           <textarea id="input" name="input" 
                     autofocus cols = "40" rows = "4">
-<%= source %>
+                    <%= source %>
           </textarea>
           <br/>
           <label for="saveas">Save as</label>
           <input id="saveas" type="text" name="fname" 
                  title="name" pattern="\w+" />
+
+          <br/>
+          <label for="eliminar">Eliminar</label>
+          <input id="eliminar" type="text" name="ename" 
+                 title="name" pattern="\w+" />
+
+
         </form>
       </td>
       <td><button id="parse" type="button">parse</button></td>
