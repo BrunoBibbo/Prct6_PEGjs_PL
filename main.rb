@@ -55,3 +55,22 @@ post '/save' do
   pp c
   redirect '/'
 end
+
+
+post '/delete' do
+  pp params
+  name = params[:fname]
+  c  = PL0Program.first(:name => name)
+  puts "prog <#{c.inspect}>"
+  if c
+    c.source = params["input"]
+    c.destroy
+  else
+    c = PL0Program.new
+    c.name = params["fname"]
+    c.source = params["input"]
+    c.destroy
+  end
+  pp c
+  redirect '/'
+end
