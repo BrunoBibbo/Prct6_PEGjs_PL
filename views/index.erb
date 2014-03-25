@@ -23,14 +23,17 @@
           <label for="saveas">Save as</label>
           <input id="saveas" type="text" name="fname" 
                  title="name" pattern="\w+" />
-
-          <br/>
-          <label for="eliminar">Eliminar</label>
-          <input id="eliminar" type="text" name="ename" 
-                 title="name" pattern="\w+" />
-
-
         </form>
+
+        <br/>
+
+        <form action="/delete" method="post"> 
+          
+          <label for="eliminar">Eliminar</label>
+          <input id="eliminar" type="text" name="fname" 
+                 title="name" pattern="\w+" />
+        </form>
+
       </td>
       <td><button id="parse" type="button">parse</button></td>
     </tr>
