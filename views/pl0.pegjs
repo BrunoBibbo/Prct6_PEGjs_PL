@@ -24,6 +24,9 @@ st     = i:ID ASSIGN e:exp
        / P e:exp
             { return {type: 'P', right: e}; }
 
+       / BEGIN s:st s1:(PCOMA s2:st {return s2;})* END
+            { return {type: 'BEGIN', value: [s].concat(s1)} }
+
        / IF e:condition THEN st:st ELSE sf:st
            {
              return {
@@ -62,7 +65,8 @@ _ = $[ \t\n\r]*
 ASSIGN   = _ op:'=' _  { return op; }
 ADD      = _ op:[+-] _ { return op; }
 MUL      = _ op:[*/] _ { return op; }
-COMPARISON = _ op:$([<>!=][=]/[<>]) _ { return op; }
+PCOMA    = _ op:';' _  { return op; }
+COMPARISON = _ op:$([<>!=]'='/[<>]) _ { return op; }
 LEFTPAR  = _"("_
 RIGHTPAR = _")"_
 IF       = _ "if" _
@@ -72,6 +76,8 @@ WHILE    = _ "while" _
 DO       = _ "do" _
 P        = _ "p" _
 CALL     = _ "call" _
+BEGIN    = _ "begin" _
+END      = _ "end" _
 ID       = _ id:$([a-zA-Z_][a-zA-Z_0-9]*) _ 
             { 
               return { type: 'ID', value: id }; 
