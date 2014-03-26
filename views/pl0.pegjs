@@ -17,7 +17,26 @@
 
 program = b:block PUNTO {return b;}
 
-block = 
+//Definicion de constantes
+const = c1:const_igualdad c2:const_igualdad_sig* PCOMA {return [c1].concat(c2); }
+
+//Definicion de igualdad entre constantes
+const_igualdad = CONST i:CONST_ID ASSIGN n:NUMBER { return {type: "=", left: i, right: n}; }
+
+//Definicion de igualdad entre las constantes posteriores
+const_igualdad_sig = COMA i:CONST_ID ASSIGN n:NUMBER { return {type: "=", left: i, right: n}; }
+
+//Definicion de variables
+vars = VAR v1:VAR_ID v2:(COMA v:VAR_ID {return v})* PCOMA {return [v1].concat(v2); }
+
+block = constantes:(const)? variables:(vars)? s:st{
+        var r = [];
+
+        if(constantes) r = r.concat(constantes);
+        if(variables)  r = r.concat(variables);
+
+        return r.concat(s);
+} 
 
 st     = i:ID ASSIGN e:exp        
             { return {type: '=', left: i, right: e}; }
@@ -74,6 +93,7 @@ ASSIGN   = _ op:'=' _  { return op; }
 ADD      = _ op:[+-] _ { return op; }
 MUL      = _ op:[*/] _ { return op; }
 PCOMA    = _ op:';' _  { return op; }
+COMA     = _ op:"," _  { return op; }
 PUNTO    = _ op:'.' _  { return op; }
 COMPARISON = _ op:$([<>!=]'='/[<>]) _ { return op; }
 LEFTPAR  = _"("_
@@ -88,9 +108,24 @@ CALL     = _ "call" _
 BEGIN    = _ "begin" _
 END      = _ "end" _
 ODD      = _ "odd" _
+PROCEDURE= _ "procedure" _
+CONST    = _ "const" _
+VAR      = _ "var" _
 ID       = _ id:$([a-zA-Z_][a-zA-Z_0-9]*) _ 
             { 
               return { type: 'ID', value: id }; 
+            }
+CONST_ID = _ id:$([a-zA-Z_][a-zA-Z_0-9]*) _ 
+            { 
+              return { type: 'CONST', value: id }; 
+            }
+VAR_ID   = _ id:$([a-zA-Z_][a-zA-Z_0-9]*) _ 
+            { 
+              return { type: 'VAR', value: id }; 
+            }
+PROC_ID  = _ id:$([a-zA-Z_][a-zA-Z_0-9]*) _ 
+            { 
+              return { type: 'PROCEDURE', value: id }; 
             }
 NUMBER   = _ digits:$[0-9]+ _ 
             { 
