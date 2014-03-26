@@ -21,19 +21,26 @@ program = b:block PUNTO {return b;}
 const = c1:const_igualdad c2:const_igualdad_sig* PCOMA {return [c1].concat(c2); }
 
 //Definicion de igualdad entre constantes
-const_igualdad = CONST i:CONST_ID ASSIGN n:NUMBER { return {type: "=", left: i, right: n}; }
+const_igualdad = CONST i:CONST_ID ASSIGN n:NUMBER { return {type: '=', left: i, right: n}; }
 
 //Definicion de igualdad entre las constantes posteriores
-const_igualdad_sig = COMA i:CONST_ID ASSIGN n:NUMBER { return {type: "=", left: i, right: n}; }
+const_igualdad_sig = COMA i:CONST_ID ASSIGN n:NUMBER { return {type: '=', left: i, right: n}; }
 
 //Definicion de variables
 vars = VAR v1:VAR_ID v2:(COMA v:VAR_ID {return v})* PCOMA {return [v1].concat(v2); }
 
-block = constantes:(const)? variables:(vars)? s:st{
+//Definicion de procedimiento
+proc = PROCEDURE i:PROC_ID arg:proc_parametros? PCOMA b:block PCOMA {return arg != null? {type: 'PROCEDURE', value: i, parameters: arg, block: b} :{type: "PROCEDURE", value: i, block: b}; }
+
+//Definicion del paso de parametros a un procedimiento
+proc_parametros = LEFTPAR i:(i1:ID i2:(COMA i:ID {return i;})* {return [i1].concat(i2)})? RIGHTPAR {return i};
+
+block = constantes:(const)? variables:(vars)? procedimiento:(proc)* s:st{
         var r = [];
 
         if(constantes) r = r.concat(constantes);
         if(variables)  r = r.concat(variables);
+        if(procedimiento) r = r.concat(procedimiento);
 
         return r.concat(s);
 } 
