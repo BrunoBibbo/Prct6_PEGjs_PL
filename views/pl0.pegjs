@@ -17,6 +17,10 @@
 
 st     = i:ID ASSIGN e:exp        
             { return {type: '=', left: i, right: e}; }
+       
+       / CALL i:ID
+            { return {type: 'CALL', right: i}; }
+
        / P e:exp
             { return {type: 'P', right: e}; }
 
@@ -67,6 +71,7 @@ ELSE     = _ "else" _
 WHILE    = _ "while" _
 DO       = _ "do" _
 P        = _ "p" _
+CALL     = _ "call" _
 ID       = _ id:$([a-zA-Z_][a-zA-Z_0-9]*) _ 
             { 
               return { type: 'ID', value: id }; 
