@@ -17,6 +17,9 @@
 
 st     = i:ID ASSIGN e:exp        
             { return {type: '=', left: i, right: e}; }
+       / P e:exp
+            { return {type: 'P', right: e}; }
+
        / IF e:condition THEN st:st ELSE sf:st
            {
              return {
@@ -43,7 +46,7 @@ st     = i:ID ASSIGN e:exp
              };
            }
 condition = t:exp r:(COMPARISON exp)* { return tree(t,r) }
-exp    = t:term   r:(ADD term)*   { return tree(t,r); }
+exp    = t:term  r:(ADD term)*  { return tree(t,r); }
 term   = f:factor r:(MUL factor)* { return tree(f,r); }
 
 factor = NUMBER
@@ -63,6 +66,7 @@ THEN     = _ "then" _
 ELSE     = _ "else" _
 WHILE    = _ "while" _
 DO       = _ "do" _
+P        = _ "p" _
 ID       = _ id:$([a-zA-Z_][a-zA-Z_0-9]*) _ 
             { 
               return { type: 'ID', value: id }; 
