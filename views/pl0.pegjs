@@ -17,24 +17,6 @@
 
 program = b:block PUNTO {return b;}
 
-//Definicion de constantes
-const = c1:const_igualdad c2:const_igualdad_sig* PCOMA {return [c1].concat(c2); }
-
-//Definicion de igualdad entre constantes
-const_igualdad = CONST i:CONST_ID ASSIGN n:NUMBER { return {type: '=', left: i, right: n}; }
-
-//Definicion de igualdad entre las constantes posteriores
-const_igualdad_sig = COMA i:CONST_ID ASSIGN n:NUMBER { return {type: '=', left: i, right: n}; }
-
-//Definicion de variables
-vars = VAR v1:VAR_ID v2:(COMA v:VAR_ID {return v})* PCOMA {return [v1].concat(v2); }
-
-//Definicion de procedimiento
-proc = PROCEDURE i:PROC_ID arg:proc_parametros? PCOMA b:block PCOMA {return arg != null? {type: 'PROCEDURE', value: i, parameters: arg, block: b} :{type: "PROCEDURE", value: i, block: b}; }
-
-//Definicion del paso de parametros a un procedimiento
-proc_parametros = LEFTPAR i:(i1:ID i2:(COMA i:ID {return i;})* {return [i1].concat(i2)})? RIGHTPAR {return i};
-
 block = constantes:(const)? variables:(vars)? procedimiento:(proc)* s:st{
         var r = [];
 
@@ -48,8 +30,8 @@ block = constantes:(const)? variables:(vars)? procedimiento:(proc)* s:st{
 st     = i:ID ASSIGN e:exp        
             { return {type: '=', left: i, right: e}; }
        
-       / CALL i:ID
-            { return {type: 'CALL', right: i}; }
+       / CALL i:PROC_ID argumentos:call_args?
+            { return argumentos? {type: "CALL", arguments: argumentos, value: i} : {type: "CALL", value: i}; }
 
        / P e:exp
             { return {type: 'P', right: e}; }
@@ -138,3 +120,24 @@ NUMBER   = _ digits:$[0-9]+ _
             { 
               return { type: 'NUM', value: parseInt(digits, 10) }; 
             }
+
+//Definicion de argumentos para CALL.
+call_args = LEFTPAR i:(i1:(ID/NUMBER) i2:( COMA i:(ID/NUMBER) {return i;} )* {return [i1].concat(i2)})? RIGHTPAR {return i};
+
+//Definicion de constantes
+const = c1:const_igualdad c2:const_igualdad_sig* PCOMA {return [c1].concat(c2); }
+
+//Definicion de igualdad entre constantes
+const_igualdad = CONST i:CONST_ID ASSIGN n:NUMBER { return {type: '=', left: i, right: n}; }
+
+//Definicion de igualdad entre las constantes posteriores
+const_igualdad_sig = COMA i:CONST_ID ASSIGN n:NUMBER { return {type: '=', left: i, right: n}; }
+
+//Definicion de variables
+vars = VAR v1:VAR_ID v2:(COMA v:VAR_ID {return v})* PCOMA {return [v1].concat(v2); }
+
+//Definicion de procedimiento
+proc = PROCEDURE i:PROC_ID arg:proc_parametros? PCOMA b:block PCOMA {return arg != null? {type: 'PROCEDURE', value: i, parameters: arg, block: b} :{type: "PROCEDURE", value: i, block: b}; }
+
+//Definicion del paso de parametros a un procedimiento
+proc_parametros = LEFTPAR i:(i1:ID i2:(COMA i:ID {return i;})* {return [i1].concat(i2)})? RIGHTPAR {return i};
