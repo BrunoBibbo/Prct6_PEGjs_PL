@@ -52,8 +52,12 @@ st     = i:ID ASSIGN e:exp
                st: st
              };
            }
-condition = t:exp r:(COMPARISON exp)* { return tree(t,r) }
+
+condition = ODD t:exp { return {type: 'ODD', value: t}; }
+            / t:exp r:(COMPARISON exp)* { return tree(t,r) }
+
 exp    = t:term  r:(ADD term)*  { return tree(t,r); }
+
 term   = f:factor r:(MUL factor)* { return tree(f,r); }
 
 factor = NUMBER
@@ -78,6 +82,7 @@ P        = _ "p" _
 CALL     = _ "call" _
 BEGIN    = _ "begin" _
 END      = _ "end" _
+ODD      = _ "odd" _
 ID       = _ id:$([a-zA-Z_][a-zA-Z_0-9]*) _ 
             { 
               return { type: 'ID', value: id }; 
