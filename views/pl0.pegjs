@@ -15,6 +15,10 @@
   }
 }
 
+program = b:block PUNTO {return b;}
+
+block = 
+
 st     = i:ID ASSIGN e:exp        
             { return {type: '=', left: i, right: e}; }
        
@@ -70,6 +74,7 @@ ASSIGN   = _ op:'=' _  { return op; }
 ADD      = _ op:[+-] _ { return op; }
 MUL      = _ op:[*/] _ { return op; }
 PCOMA    = _ op:';' _  { return op; }
+PUNTO    = _ op:'.' _  { return op; }
 COMPARISON = _ op:$([<>!=]'='/[<>]) _ { return op; }
 LEFTPAR  = _"("_
 RIGHTPAR = _")"_
