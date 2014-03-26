@@ -1,8 +1,3 @@
-/*
- * Classic example grammar, which recognizes simple arithmetic expressions like
- * "2*(3+4)". The parser generated from this grammar then AST.
- */
-
 {
   var tree = function(f, r) {
     if (r.length > 0) {
@@ -20,25 +15,26 @@
   }
 }
 
-st     = i:ID ASSIGN e:exp            
+st     = i:ID ASSIGN e:exp        
             { return {type: '=', left: i, right: e}; }
-       / IF e:exp THEN st:st ELSE sf:st
+       / IF e:condition THEN st:st ELSE sf:st
            {
              return {
                type: 'IFELSE',
-               c:  e,
+               condition:  e,
                st: st,
                sf: sf,
              };
            }
-       / IF e:exp THEN st:st    
+       / IF e:condition THEN st:st    
            {
              return {
                type: 'IF',
-               c:  e,
+               condition:  e,
                st: st
              };
            }
+condition = t:exp r:(COMPARISON exp)* { return tree(t,r) }
 exp    = t:term   r:(ADD term)*   { return tree(t,r); }
 term   = f:factor r:(MUL factor)* { return tree(f,r); }
 
@@ -51,6 +47,7 @@ _ = $[ \t\n\r]*
 ASSIGN   = _ op:'=' _  { return op; }
 ADD      = _ op:[+-] _ { return op; }
 MUL      = _ op:[*/] _ { return op; }
+COMPARISON = _ op:$([<>!=][=]/[<>]) _ { return op; }
 LEFTPAR  = _"("_
 RIGHTPAR = _")"_
 IF       = _ "if" _
