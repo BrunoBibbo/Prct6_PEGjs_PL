@@ -47,10 +47,12 @@ post '/save' do
     c.source = params["input"]
     c.save
   else
-    c = PL0Program.new
-    c.name = params["fname"]
-    c.source = params["input"]
-    c.save
+    if PL0Program.count < 10
+        c = PL0Program.new
+        c.name = params["fname"]
+        c.source = params["input"]
+        c.save
+      end
   end
   pp c
   redirect '/'
