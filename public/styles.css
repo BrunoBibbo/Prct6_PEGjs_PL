@@ -87,7 +87,7 @@ nav a.current {
 .centered {
   text-align: center; }
 
-table.tablaOUT{
+#tablaOUT{
   text-align: left;
   color: #444444;
   background-color: #FFFFFF;
