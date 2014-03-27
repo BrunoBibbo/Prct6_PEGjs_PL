@@ -67,11 +67,6 @@ post '/delete' do
   if c
     c.source = params["input"]
     c.destroy
-  else
-    c = PL0Program.new
-    c.name = params["fname"]
-    c.source = params["input"]
-    c.destroy
   end
   pp c
   redirect '/'
