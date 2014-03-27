@@ -12,7 +12,7 @@ h1 {
   background: #FFFFFF;
   border-radius: 5px;
   border: 2px solid #3388BB;
-  width: 500px;
+  width: 800px;
 }
 
 header h1 {
@@ -86,3 +86,15 @@ nav a.current {
 
 .centered {
   text-align: center; }
+
+table.tablaOUT{
+  text-align: left;
+  color: $black;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  border: 2px solid #3388BB;
+  display: block;
+  height: 350px;
+  width: 1000px;
+  overflow: auto;
+}
