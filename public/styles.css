@@ -33,7 +33,10 @@ nav {
       background: #111111; }
 
 p {
-  font: 13px/1.4 Helvetica, Arial, sans-serif; }
+  font: 13px/1.4 Helvetica, Arial, sans-serif;
+  color: #444444;
+  font-weight: bolder;
+}
 
 label {
   display: block; }
