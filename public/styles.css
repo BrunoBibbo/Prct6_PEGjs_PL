@@ -59,13 +59,8 @@ nav a.current {
   height: 28px;
   padding-left: 24px; }
 
-.loadfile {
-  background-color: #444444;
-  border-radius: 5px;
-  border: 2px solid #DDD;
-  line-height: 80px;
-  height: 20px;
-  padding: 5px; }
+
+
   .loadfile button, .loadfile input {
     color: #444444;
     list-style: none;
