@@ -1,8 +1,5 @@
-<h1>Analizador de PL0 ampliado usando PEG.js</h1>
 <div id="content">
-  <p class="loadfile">
-    <input type="file" id="examples" />
-  </p>
+  
   <p>
   <nav>
   <ul>
@@ -13,28 +10,36 @@
   </nav>
   <table>
     <tr>
-      <td>
+      <tr>
         <form action="/save" method="post">
           <textarea id="input" name="input" 
                     autofocus cols = "40" rows = "4">
 <%= source %>
           </textarea>
-          <br/>
+      </tr>
+      <tr>
+          <p class="loadfile">
+              <input type="file" id="examples" />
+          </p>
+      </tr>
+      <tr>
+      <td>
+          
           <label for="saveas">Guardar (máx 10 archivos)</label>
           <input id="saveas" type="text" name="fname" 
                  title="name" pattern="\w+" />
         </form>
-
-        <br/>
-
+      </td>
+        
+      <td>
         <form action="/delete" method="post"> 
           
           <label for="eliminar">Eliminar</label>
           <input id="eliminar" type="text" name="fname" 
                  title="name" pattern="\w+" />
         </form>
-
       </td>
+      </tr>
       <td><button id="parse" type="button">Parsear</button></td>
     </tr>
   </table>
