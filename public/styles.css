@@ -1,5 +1,7 @@
 body {
-  font-family: Helvetica, Arial, sans-serif; }
+  font-family: Helvetica, Arial, sans-serif; 
+  background:url(fondo.jpg) top right no-repeat; background-position:fixed;
+}
 
 h1 {
   color: #990033;
@@ -8,7 +10,6 @@ h1 {
 header h1 {
   font-size: 40px;
   line-height: 80px;
-  background: transparent url(/images/logo.png) 0 0 no-repeat;
   background-size: 5% 70%;
   padding-left: 84px; }
 
@@ -56,7 +57,6 @@ nav a.current {
   font-weight: bold;
   color: #990033; }
 #like input {
-  background: #990033 url(/images/like.png) 0 2px no-repeat;
   border: #660022 1px solid;
   height: 28px;
   padding-left: 24px; }
