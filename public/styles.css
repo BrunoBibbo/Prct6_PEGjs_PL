@@ -20,7 +20,9 @@ nav {
     padding: 0;
     background: #444444;
     overflow: hidden; }
-  nav li {}
+  nav li {
+    display: inline-block;
+    }
   nav a {
     text-decoration: none;
     display: block;
