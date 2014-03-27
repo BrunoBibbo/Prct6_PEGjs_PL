@@ -7,8 +7,12 @@ body {
 }
 
 h1 {
-  color: #990033;
-  font: 32px/1 Helvetica, Arial, sans-serif; }
+  color: #33DDFF;
+  font: 32px/1 Helvetica, Arial, sans-serif; 
+  background: #FFFFFF;
+  border-radius: 5px;
+  border: 2px solid #33DDFF;
+}
 
 header h1 {
   font-size: 40px;
@@ -30,14 +34,14 @@ nav {
     text-decoration: none;
     display: block;
     padding: 8px;
-    background: #444444;
+    background: #33DDFF;
     color: white; }
     nav a:hover {
       background: #111111; }
 
 p {
   font: 13px/1.4 Helvetica, Arial, sans-serif;
-  color: #444444;
+  color: #33DDFF;
   font-weight: bolder;
 }
 
