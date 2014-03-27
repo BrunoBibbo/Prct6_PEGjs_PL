@@ -20,8 +20,7 @@ nav {
     padding: 0;
     background: #444444;
     overflow: hidden; }
-  nav li {
-    float: none; }
+  nav li {}
   nav a {
     text-decoration: none;
     display: block;
@@ -67,7 +66,6 @@ nav a.current {
   padding: 5px; }
   .loadfile button, .loadfile input {
     color: #444444;
-    float: none;
     list-style: none;
     display: inline;
     text-align: center;
