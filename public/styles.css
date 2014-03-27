@@ -38,7 +38,7 @@ nav {
     background: #3388BB;
     color: white; }
     nav a:hover {
-      background: #3366BB; }
+      background: #111111; }
 
 p {
   font: 13px/1.4 Helvetica, Arial, sans-serif;
@@ -50,14 +50,14 @@ label {
   display: block; }
 
 nav a.current {
-  background: #c4c4c4; }
+  background: #3366BB; }
 
 .flash {
   width: 600px;
   padding: 5px;
   font-weight: bold;
   margin: 20px;
-  background: #ffccdd;
+  background: #3366BB;
   color: #990033;
   border: 1px solid #990033; }
 
