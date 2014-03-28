@@ -3,10 +3,11 @@
 
 
 <div id="mocha"></div>
-    
-    <script>
-      mocha.run();
-    </script>
+<script>mocha.setup('tdd')</script>
+<script src="tests/tests.js"></script>
+<script>mocha.run();</script>
+
+
     <!--
 #mocha
   javascript:
