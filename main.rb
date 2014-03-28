@@ -28,6 +28,10 @@ get '/grammar' do
   erb :grammar
 end
 
+get '/tests' do
+  erb :tests
+end
+
 get '/:selected?' do |selected|
   programs = PL0Program.all
   pp programs
