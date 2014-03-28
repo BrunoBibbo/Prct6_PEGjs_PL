@@ -2443,5 +2443,3 @@ pl0 = (function() {
     parse:       parse
   };
 })();
-
-window.parse = parse
