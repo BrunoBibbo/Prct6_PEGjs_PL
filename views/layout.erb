@@ -6,6 +6,14 @@
     <link rel="icon" type="image/ico" href="images/favicon.ico" />
     <link rel="stylesheet" href="/styles.css" type="text/css" media="screen" charset="utf-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script src="tests/chai.js"></script>
+    <script src="tests/mocha.js"></script>
+    <script src="main.js"></script>
+    <script src="pl0.js"></script>
+    <script>mocha.setup('tdd')</script>
+    <script src="/tests/tests.js"></script>
+
   </head>
   <body>
     <center>
@@ -18,6 +26,7 @@
         <li> <a href="http://pegjs.majda.cz/"  title="PEG.js">PEG.js</a> </li>
         <li> <a href="http://datamapper.org/"  title="DataMapper">DataMapper</a> </li>
         <li> <a href="https://github.com/alu0100597929/Prct6_Analizador_PL0_PEG.git"  title="Repo">Repositorio</a> </li>
+        <li> <a href="/tests"  title="Tests">Tests</a> </li>
       </ul>
     </nav>
     <%= yield %>
