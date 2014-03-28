@@ -63,7 +63,7 @@ var assert = chai.assert;
   });
 
   test('Error de Sintaxis: ', function(){
-    assert.throws(function() { pl0.parse("a = 5+4"); }, /Expected "."/);
+    assert.throws(function() { pl0.parse("a = 2;"); }, /Expected "."/);
   });
 
  });
