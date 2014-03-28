@@ -4,7 +4,7 @@ var assert = chai.assert;
     
   test('Resta a izquierdas', function(){  
     var input = pl0.parse("A = 3 - 4 - 1.");
-    assert.equal('{\n  "type": "PROGRAM",\n  "bloque": [\n    [],\n    {\n      "type": "=",\n      "left": {\n        "type": "ID",\n        "value": "A"\n      },\n      "right": {\n        "type": "-",\n        "left": {\n          "type": "-",\n          "left": {\n            "type": "NUM",\n            "value": 3\n          },\n          "right": {\n            "type": "NUM",\n            "value": 4\n          }\n        },\n        "right": {\n          "type": "NUM",\n          "value": 1\n        }\n      }\n    }\n  ]\n}', JSON.stringify(input));
+    assert.equal('[{"type":"=","left":{"type":"ID","value":"A"},"right":{"type":"-","left":{"type":"-","left":{"type":"NUM","value":3},"right":{"type":"NUM","value":4}},"right":{"type":"NUM","value":1}}}]', JSON.stringify(input));
   });
 
  });
