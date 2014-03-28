@@ -1,6 +1,6 @@
 body {
   font-family: Helvetica, Arial, sans-serif; 
-  background:url(fondo.jpg) no-repeat;
+  background:url(images/fondo.jpg) no-repeat;
   background-size: cover;
   background-position: center 0;
   background-attachment: fixed;
