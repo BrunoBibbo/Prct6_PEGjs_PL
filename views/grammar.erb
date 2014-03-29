@@ -20,17 +20,30 @@ Recuerde que un PEG $G$ es una cuaterna $G =(\Sigma,V,P,S)$.
   $V$ que se denomina <i>expresión de arranque</i>.
 </ol>
 <ol>
-  <li> $\Sigma = \{ if, then, else, =, +, -, *, /, (, ), 0 \ldots 9 \}$, 
-  <li> $V = \{ st, exp, term, factor \} \cup$ <br />
-  $\{ASSIGN, ADD, MUL, LEFTPAR, RIGHTPAR \} \cup$ <br />
-  $\{IF, THEN, ELSE, ID, NUMBER, \_ \}$
+  <li> $\Sigma = \{ if, then, else, while, do, begin, end, p, call, odd, procedure, const, var, ",", ";", ".", <, >, <=, >=, !=, ==, =, +, -, *, /, (, ), 0 \ldots 9 \}$, 
+  <li> $V = \{ program, block, st, condition, exp, term, factor, call_args, const, const_igualdad, const_igualdad_sig, vars, proc, proc_parametros \} \cup$ <br />
+  $\{ASSIGN, ADD, MUL, LEFTPAR, RIGHTPAR, PCOMA, COMA, PUNTO, COMPARISON \} \cup$ <br />
+  $\{IF, THEN, ELSE, ID, NUMBER, WHILE, DO, P, CALL, BEGIN, END, ODD, PROCEDURE, CONST, VAR, CONST_ID, VAR_ID, PROC_ID\_ \}$
   <li> Reglas de Análisis:
   <ol>
 <pre>
+program = block PUNTO
+
+block = const? vars? proc* st
+
 st     = ID ASSIGN exp
-       / IF exp THEN st ELSE st
-       / IF exp THEN st
+       / IF condition THEN st ELSE st
+       / IF condition THEN st
+	   / WHILE condition DO st
+	   / BEGIN st PCOMA st END
+	   / P exp
+	   / CALL PROC_ID call_args?
+
+condition = ODD exp
+            /exp COMPARISON exp
+			
 exp    = term   (ADD term)*
+
 term   = factor (MUL factor)*
 
 factor = NUMBER
@@ -39,16 +52,47 @@ factor = NUMBER
 
 _ = $[ \t\n\r]*
 
-ASSIGN   = _ '=' _
+ASSIGN   = _ '=' _ 
 ADD      = _ [+-] _
 MUL      = _ [*/] _
+PCOMA    = _ ';' _
+COMA     = _ "," _
+PUNTO    = _ '.' _
+COMPARISON = _ $([<>!=]'='/[<>]) _
 LEFTPAR  = _"("_
 RIGHTPAR = _")"_
 IF       = _ "if" _
 THEN     = _ "then" _
 ELSE     = _ "else" _
-ID       = _ [a-zA-Z_][a-zA-Z_0-9]* _
-NUMBER   = _ [0-9]+ _
+WHILE    = _ "while" _
+DO       = _ "do" _
+P        = _ "p" _
+CALL     = _ "call" _
+BEGIN    = _ "begin" _
+END      = _ "end" _
+ODD      = _ "odd" _
+PROCEDURE= _ "procedure" _
+CONST    = _ "const" _
+VAR      = _ "var" _
+ID       = _ id:$([a-zA-Z_][a-zA-Z_0-9]*) _ 
+CONST_ID = _ id:$([a-zA-Z_][a-zA-Z_0-9]*) _
+VAR_ID   = _ id:$([a-zA-Z_][a-zA-Z_0-9]*) _
+PROC_ID  = _ id:$([a-zA-Z_][a-zA-Z_0-9]*) _
+NUMBER   = _ digits:$[0-9]+ _
+
+call_args = LEFTPAR ((ID/NUMBER) (COMA (ID/NUMBER))*)? RIGHTPAR
+
+const = const_igualdad const_igualdad_sig* PCOMA
+
+const_igualdad = CONST CONST_ID ASSIGN NUMBER
+
+const_igualdad_sig = COMA CONST_ID ASSIGN NUMBER
+
+vars = VAR VAR_ID (COMA VAR_ID)* PCOMA
+
+proc = PROCEDURE PROC_ID proc_parametros? PCOMA block PCOMA
+
+proc_parametros = LEFTPAR (ID (COMA ID)*)? RIGHTPAR
 </pre>
   </ol>
   <li> Expresión de arranque: $st$
