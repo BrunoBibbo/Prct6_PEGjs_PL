@@ -9,7 +9,7 @@
 <br>
 Recuerde que un PEG $G$ es una cuaterna $G =(\Sigma,V,P,S)$.
 <ol>
-  <li>$\Sigma$ es el conjunto de terminales. 
+  <li>$\Sigma$ es el conjunto de terminales. <BR>
   <li>$V$ es un conjunto (disjunto de $\Sigma$) que se denomina conjunto de 
       <i>símbolos no terminales</i>,
       <i>variables sintácticas</i> o <i>categorías gramáticales</i>,
@@ -20,11 +20,11 @@ Recuerde que un PEG $G$ es una cuaterna $G =(\Sigma,V,P,S)$.
   $V$ que se denomina <i>expresión de arranque</i>.
 </ol>
 <ol>
-  <li> $\Sigma = \{ if, then, else, while, do, begin, end, p, call, odd, procedure, const, var, ",", ";", ".", <, >, <=, >=, !=, ==, =, +, -, *, /, (, ), 0 \ldots 9 \}$, 
+  <li> $\Sigma = \{ if, then, else, while, do, begin, end, p, call, odd, procedure, const, var, ',', ';', '.', <, >, <=, >=, !=, ==, =, +, -, *, /, (, ), 0 \ldots 9, a \ldots z, A \ldots Z \}$, 
   <li> $V = \{ program, block, st, condition, exp, term, factor, call_args, const, const_igualdad, const_igualdad_sig, vars, proc, proc_parametros \} \cup$ <br />
   $\{ASSIGN, ADD, MUL, LEFTPAR, RIGHTPAR, PCOMA, COMA, PUNTO, COMPARISON \} \cup$ <br />
-  $\{IF, THEN, ELSE, ID, NUMBER, WHILE, DO, P, CALL, BEGIN, END, ODD, PROCEDURE, CONST, VAR, CONST_ID, VAR_ID, PROC_ID\_ \}$
-  <li> Reglas de Análisis:
+  $\{IF, THEN, ELSE, ID, NUMBER, WHILE, DO, P, CALL, BEGIN, END, ODD, PROCEDURE, CONST, VAR, CONST\_ID, VAR\_ID, PROC\_ID \}$
+  <li><BR> Reglas de Análisis:
   <ol>
 <pre>
 program = block PUNTO
@@ -95,7 +95,7 @@ proc = PROCEDURE PROC_ID proc_parametros? PCOMA block PCOMA
 proc_parametros = LEFTPAR (ID (COMA ID)*)? RIGHTPAR
 </pre>
   </ol>
-  <li> Expresión de arranque: $st$
+  <li> Expresión de arranque: $program$
 </ol>
 <BR>
 <BR>
